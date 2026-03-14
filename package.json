@@ -1,0 +1,14 @@
+{
+  "name": "redbus-plus-pro",
+  "version": "1.0.0",
+  "description": "RedBus Plus Pro - MEAN stack bus booking application",
+  "scripts": {
+    "install:frontend": "cd REDBUS-CLONE-MEAN-main/REDBUS-CLONE-MEAN-main/frontend && npm install",
+    "install:backend": "cd REDBUS-CLONE-MEAN-main/REDBUS-CLONE-MEAN-main/frontend/server && npm install",
+    "setup": "npm run install:frontend && npm run install:backend",
+    "start:frontend": "cd REDBUS-CLONE-MEAN-main/REDBUS-CLONE-MEAN-main/frontend && npm start",
+    "start:backend": "cd REDBUS-CLONE-MEAN-main/REDBUS-CLONE-MEAN-main/frontend/server && npm start",
+    "build:frontend": "cd REDBUS-CLONE-MEAN-main/REDBUS-CLONE-MEAN-main/frontend && npm run build"
+  },
+  "private": true
+}
