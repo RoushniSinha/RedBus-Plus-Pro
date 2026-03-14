@@ -1,1 +1,3 @@
-export const url:string='http://localhost:5000/';
+import { environment } from '../../environments/environment';
+
+export const url: string = environment.apiUrl;

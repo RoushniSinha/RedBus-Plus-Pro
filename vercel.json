@@ -1,0 +1,11 @@
+{
+  "buildCommand": "cd REDBUS-CLONE-MEAN-main/REDBUS-CLONE-MEAN-main/frontend && npm install && npm run build",
+  "outputDirectory": "REDBUS-CLONE-MEAN-main/REDBUS-CLONE-MEAN-main/frontend/dist/frontend/browser",
+  "framework": null,
+  "rewrites": [
+    { "source": "/customer/:path*", "destination": "/api/server" },
+    { "source": "/routes/:path*", "destination": "/api/server" },
+    { "source": "/booking/:path*", "destination": "/api/server" },
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}
