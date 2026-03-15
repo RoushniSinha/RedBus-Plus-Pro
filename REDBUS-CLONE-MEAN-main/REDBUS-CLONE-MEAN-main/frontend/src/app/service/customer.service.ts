@@ -14,7 +14,7 @@ export class CustomerService {
     const customer:Customer={
       name:user.name,
       email:user.email,
-      googleId:user.id,
+      googleId:user.sub,
       profilepicture:user.picture
     }
     return this.http.post<Customer>(this.apiurl,customer  )
