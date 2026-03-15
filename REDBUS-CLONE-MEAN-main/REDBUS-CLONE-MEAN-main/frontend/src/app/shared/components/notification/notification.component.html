@@ -1,0 +1,13 @@
+<div class="fixed top-4 right-4 z-50 flex flex-col gap-2 max-w-sm w-full">
+  <div
+    *ngFor="let n of (notifications$ | async); trackBy: trackById"
+    [ngClass]="getBgClass(n.type)"
+    class="flex items-start gap-3 text-white px-4 py-3 rounded-lg shadow-lg animate-fadeIn"
+  >
+    <mat-icon class="mt-0.5 shrink-0">{{ getIcon(n.type) }}</mat-icon>
+    <span class="flex-1 text-sm leading-5">{{ n.message }}</span>
+    <button (click)="dismiss(n.id)" class="shrink-0 opacity-80 hover:opacity-100">
+      <mat-icon class="text-base leading-none">close</mat-icon>
+    </button>
+  </div>
+</div>

@@ -1,0 +1,30 @@
+{
+  "NAV": {
+    "HOME": "Home",
+    "SELECT_BUS": "Find Buses",
+    "PROFILE": "Profile",
+    "ROUTE_PLANNING": "Route Planning",
+    "TRAVEL_STORIES": "Travel Stories",
+    "LOGIN": "Login",
+    "REGISTER": "Register",
+    "LOGOUT": "Logout"
+  },
+  "HOME": {
+    "HERO_TITLE": "Book Bus Tickets Online",
+    "HERO_SUBTITLE": "Largest network of bus operators — best price guaranteed",
+    "FROM": "From",
+    "TO": "To",
+    "DATE": "Journey Date",
+    "SEARCH": "Search Buses",
+    "POPULAR_ROUTES": "Popular Routes"
+  },
+  "COMMON": {
+    "LOADING": "Loading...",
+    "ERROR": "Something went wrong",
+    "SAVE": "Save",
+    "CANCEL": "Cancel",
+    "SUBMIT": "Submit",
+    "DARK_MODE": "Dark Mode",
+    "LIGHT_MODE": "Light Mode"
+  }
+}

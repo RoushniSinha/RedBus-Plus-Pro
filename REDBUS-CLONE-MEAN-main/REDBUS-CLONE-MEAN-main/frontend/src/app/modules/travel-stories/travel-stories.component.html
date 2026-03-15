@@ -1,0 +1,76 @@
+<div class="min-h-screen bg-gray-50 dark:bg-black p-6">
+  <div class="max-w-4xl mx-auto">
+    <div class="flex items-center justify-between mb-8">
+      <h1 class="text-3xl font-bold text-gray-800 dark:text-white">
+        <mat-icon class="align-middle mr-2">auto_stories</mat-icon>Travel Stories
+      </h1>
+      <button
+        (click)="showForm = !showForm"
+        class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg font-medium flex items-center gap-2 transition"
+      >
+        <mat-icon>{{ showForm ? 'close' : 'add' }}</mat-icon>
+        {{ showForm ? 'Cancel' : 'Share Story' }}
+      </button>
+    </div>
+
+    <!-- Story submission form -->
+    <div *ngIf="showForm" class="bg-white dark:bg-gray-900 rounded-2xl shadow-lg p-6 mb-8">
+      <h2 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">Share Your Journey</h2>
+      <form [formGroup]="storyForm" (ngSubmit)="onSubmit()" novalidate>
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Title</label>
+          <input type="text" formControlName="title" placeholder="E.g. Bangalore to Mysore Road Trip"
+            class="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-2 text-sm bg-white dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-red-500"
+          />
+          <p *ngIf="storyForm.get('title')?.touched && storyForm.get('title')?.errors?.['required']"
+             class="text-red-500 text-xs mt-1">Title is required</p>
+        </div>
+
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Your Story</label>
+          <textarea formControlName="content" rows="4" placeholder="Tell us about your travel experience..."
+            class="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-2 text-sm bg-white dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-red-500"
+          ></textarea>
+          <p *ngIf="storyForm.get('content')?.touched && storyForm.get('content')?.errors?.['minlength']"
+             class="text-red-500 text-xs mt-1">Story must be at least 20 characters</p>
+        </div>
+
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Add Photo</label>
+          <input type="file" accept="image/*" (change)="onFileSelect($event)" class="text-sm text-gray-500 dark:text-gray-400" />
+          <div *ngIf="uploading" class="text-sm text-blue-500 mt-1">Uploading image...</div>
+          <img *ngIf="previewUrl" [src]="previewUrl" alt="Preview" class="mt-2 rounded-lg h-40 object-cover" />
+        </div>
+
+        <div class="mb-6">
+          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Your Rating</label>
+          <app-star-rating [rating]="selectedRating" (ratingChange)="onRatingChange($event)"></app-star-rating>
+        </div>
+
+        <button type="submit" [disabled]="storyForm.invalid || submitting"
+          class="bg-red-600 hover:bg-red-700 disabled:opacity-50 text-white font-semibold px-6 py-2 rounded-lg transition">
+          {{ submitting ? 'Sharing...' : 'Share Story' }}
+        </button>
+      </form>
+    </div>
+
+    <!-- Stories grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div *ngFor="let story of stories"
+           class="bg-white dark:bg-gray-900 rounded-2xl shadow hover:shadow-md transition overflow-hidden">
+        <img *ngIf="story.imageUrl" [src]="story.imageUrl" [alt]="story.title"
+             class="w-full h-48 object-cover" />
+        <div class="p-5">
+          <h3 class="font-bold text-gray-800 dark:text-white text-lg mb-2">{{ story.title }}</h3>
+          <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-3">{{ story.content }}</p>
+          <app-star-rating [rating]="story.rating" [readonly]="true"></app-star-rating>
+          <div class="flex items-center gap-2 mt-3 text-xs text-gray-500 dark:text-gray-400">
+            <mat-icon class="text-sm">person</mat-icon>
+            <span>{{ story.author }}</span>
+            <span class="ml-auto">{{ story.createdAt | date:'mediumDate' }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

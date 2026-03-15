@@ -13,7 +13,7 @@ import {provideNativeDateAdapter} from '@angular/material/core';
 import { MatDialogModule} from '@angular/material/dialog';
 import { DialogComponent } from './Component/landing-page/dialog/dialog.component';
 import {MatTableModule} from '@angular/material/table';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SelectbusPageComponent } from './Component/selectbus-page/selectbus-page.component';
 import { HeaderComponent } from './Component/selectbus-page/header/header.component';
 import { LeftComponent } from './Component/selectbus-page/left/left.component';
@@ -21,7 +21,7 @@ import { RightComponent } from './Component/selectbus-page/right/right.component
 import {MatIconModule} from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { SortingBarComponent } from './Component/selectbus-page/right/sorting-bar/sorting-bar.component';
-import { BusBoxComponent } from './Component/selectbus-page/right/bus-box/bus-box.component'; 
+import { BusBoxComponent } from './Component/selectbus-page/right/bus-box/bus-box.component';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import { BottomTabComponent } from './Component/selectbus-page/right/bus-book/bottom-tab/bottom-tab.component';
@@ -32,7 +32,17 @@ import { BusBookingFormComponent } from './Component/selectbus-page/right/bus-bo
 import { PaymentPageComponent } from './Component/payment-page/payment-page.component';
 import { ProfilePageComponent } from './Component/profile-page/profile-page.component';
 import { MyTripComponent } from './Component/profile-page/my-trip/my-trip.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
+import { JwtInterceptor } from './interceptors/jwt.interceptor';
+import { NotificationComponent } from './shared/components/notification/notification.component';
+import { StarRatingModule } from './shared/star-rating.module';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -53,7 +63,8 @@ import { HttpClientModule } from '@angular/common/http';
     BusBookingFormComponent,
     PaymentPageComponent,
     ProfilePageComponent,
-    MyTripComponent
+    MyTripComponent,
+    NotificationComponent
   ],
   imports: [
     BrowserModule,
@@ -65,13 +76,26 @@ import { HttpClientModule } from '@angular/common/http';
     MatDialogModule,
     MatTableModule,
     FormsModule,
+    ReactiveFormsModule,
     MatIconModule,
     CommonModule,
     MatSidenavModule,
     MatDividerModule,
-    HttpClientModule
+    HttpClientModule,
+    StarRatingModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      },
+      defaultLanguage: 'en'
+    })
   ],
-  providers: [provideNativeDateAdapter()],
+  providers: [
+    provideNativeDateAdapter(),
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

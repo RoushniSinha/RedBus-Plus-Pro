@@ -1,0 +1,49 @@
+<div class="min-h-screen bg-gray-50 dark:bg-black p-6">
+  <h1 class="text-3xl font-bold text-gray-800 dark:text-white mb-6">
+    <mat-icon class="align-middle mr-2">map</mat-icon>Interactive Route Planning
+  </h1>
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <!-- Route selector panel -->
+    <div class="lg:col-span-1 space-y-3">
+      <h2 class="text-lg font-semibold text-gray-700 dark:text-gray-300">Select Route</h2>
+      <button
+        *ngFor="let route of predefinedRoutes; let i = index"
+        (click)="selectRoute(i)"
+        [class.ring-2]="selectedRouteIndex === i"
+        [class.ring-red-500]="selectedRouteIndex === i"
+        class="w-full text-left bg-white dark:bg-gray-900 rounded-xl p-4 shadow hover:shadow-md transition"
+      >
+        <div class="flex items-center gap-2 mb-1">
+          <mat-icon class="text-red-500 text-base">location_on</mat-icon>
+          <span class="font-medium text-gray-800 dark:text-white">{{ route.origin.label }}</span>
+          <mat-icon class="text-gray-400 text-sm">arrow_forward</mat-icon>
+          <span class="font-medium text-gray-800 dark:text-white">{{ route.destination.label }}</span>
+        </div>
+        <div class="flex gap-4 text-xs text-gray-500 dark:text-gray-400 mt-1">
+          <span><mat-icon class="text-xs align-middle">straighten</mat-icon> {{ route.distanceKm }} km</span>
+          <span><mat-icon class="text-xs align-middle">schedule</mat-icon> {{ formatDuration(route.durationMin) }}</span>
+          <span *ngIf="route.waypoints.length"><mat-icon class="text-xs align-middle">place</mat-icon> {{ route.waypoints.length }} stop(s)</span>
+        </div>
+      </button>
+    </div>
+
+    <!-- Map -->
+    <div class="lg:col-span-2">
+      <div id="route-map" class="w-full h-96 rounded-2xl shadow-lg overflow-hidden border border-gray-200 dark:border-gray-700"></div>
+
+      <!-- Route details -->
+      <ng-container *ngIf="currentRoute$ | async as route">
+        <div class="mt-4 bg-white dark:bg-gray-900 rounded-xl p-4 shadow">
+          <h3 class="font-semibold text-gray-800 dark:text-white mb-2">Route Details</h3>
+          <div class="flex flex-wrap gap-4 text-sm text-gray-600 dark:text-gray-300">
+            <span>🚌 {{ route.origin.label }} → {{ route.destination.label }}</span>
+            <span>📏 {{ route.distanceKm }} km</span>
+            <span>⏱️ {{ formatDuration(route.durationMin) }}</span>
+            <span *ngIf="route.waypoints.length">📍 Stops: {{ getWaypointLabels(route.waypoints) }}</span>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>

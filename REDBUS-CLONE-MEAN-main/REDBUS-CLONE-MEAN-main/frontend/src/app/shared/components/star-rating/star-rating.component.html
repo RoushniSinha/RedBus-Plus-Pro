@@ -1,0 +1,21 @@
+<div class="flex items-center gap-1">
+  <button
+    *ngFor="let star of stars"
+    type="button"
+    (mouseenter)="onHover(star)"
+    (mouseleave)="onLeave()"
+    (click)="onSelect(star)"
+    [disabled]="readonly"
+    class="focus:outline-none transition-transform duration-100"
+    [class.cursor-default]="readonly"
+    [class.scale-110]="!readonly && hoveredStar === star"
+    [attr.aria-label]="'Rate ' + star + ' out of ' + maxStars"
+  >
+    <mat-icon
+      [class.text-yellow-400]="isActive(star)"
+      [class.text-gray-300]="!isActive(star)"
+      class="text-2xl select-none"
+    >star</mat-icon>
+  </button>
+  <span class="ml-1 text-sm text-gray-500 dark:text-gray-400">{{ rating }}/{{ maxStars }}</span>
+</div>
