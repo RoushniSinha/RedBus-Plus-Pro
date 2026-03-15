@@ -3,6 +3,7 @@ declare var google:any;
 import { CustomerService } from '../../service/customer.service';
 import { Customer } from '../../model/customer.model';
 import { Router } from '@angular/router';
+import { environment } from '../../../environments/environment';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -20,7 +21,7 @@ ngOnInit(): void {
 
 
   google.accounts.id.initialize({
-    client_id:"129421237209-jricn8ed4fgld4glk6k716deq5ebsmpb.apps.googleusercontent.com",
+    client_id: environment.googleClientId,
     callback:(response:any)=>{this.handlelogin(response);
 
     }
