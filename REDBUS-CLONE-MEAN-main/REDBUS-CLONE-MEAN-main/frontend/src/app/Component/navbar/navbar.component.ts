@@ -52,6 +52,7 @@ handlelogin(response:any){
     next:(response)=>{
       console.log('POST success',response);
       sessionStorage.setItem("Loggedinuser",JSON.stringify(response))
+      this.isloggedIn=true
     },
     error:(error)=>{
       console.error('Posr request failed',error)
