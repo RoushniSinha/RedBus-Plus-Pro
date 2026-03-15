@@ -20,12 +20,17 @@ const customerSchema = new Schema({
   email: {
     type: String,
     required: true,
+    unique: true,
   },
   dateOfBirth: {
     type: String,
     required: false,
   },
   profilePicture: {
+    type: String,
+    required: false,
+  },
+  passwordHash: {
     type: String,
     required: false,
   },

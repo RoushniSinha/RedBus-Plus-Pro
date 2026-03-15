@@ -15,10 +15,12 @@ app.use(bodyparser.json());
 const customerroutes = require('../REDBUS-CLONE-MEAN-main/REDBUS-CLONE-MEAN-main/frontend/server/routes/customer');
 const routesroute = require('../REDBUS-CLONE-MEAN-main/REDBUS-CLONE-MEAN-main/frontend/server/routes/route');
 const bookingroute = require('../REDBUS-CLONE-MEAN-main/REDBUS-CLONE-MEAN-main/frontend/server/routes/booking');
+const authroute = require('../REDBUS-CLONE-MEAN-main/REDBUS-CLONE-MEAN-main/frontend/server/routes/auth');
 
 app.use(bookingroute);
 app.use(routesroute);
 app.use(customerroutes);
+app.use(authroute);
 
 const DBURL = process.env.MONGODB_URI;
 

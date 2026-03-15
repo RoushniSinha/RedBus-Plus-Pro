@@ -67,29 +67,64 @@
 
    
     <!-- navbar right part starts here  -->
-    <div id="google-btn" *ngIf="!isloggedIn"></div>
-    <div class="hidden md:flex items-center gap-3"  *ngIf="isloggedIn">
-        
-        <a class="flex items-center justify-center gap-2 h-10 px-2 rounded-lg hover:bg-gray-100">
-            <i class="fa-solid fa-headset text-[#4a4a4a] text-xl"></i>
-            <p>Help</p>
+    <div class="flex items-center gap-2">
+      <!-- Language Switcher -->
+      <div class="hidden md:flex items-center gap-1">
+        <button
+          *ngFor="let lang of availableLangs"
+          (click)="switchLanguage(lang.code)"
+          [class.font-bold]="currentLang === lang.code"
+          [class.text-red-600]="currentLang === lang.code"
+          class="text-xs px-1.5 py-1 rounded hover:bg-gray-100 transition"
+        >{{ lang.label }}</button>
+      </div>
+
+      <!-- Dark Mode Toggle -->
+      <button
+        (click)="toggleDarkMode()"
+        class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition"
+        [title]="(isDark$ | async) ? 'Switch to Light Mode' : 'Switch to Dark Mode'"
+      >
+        <mat-icon class="text-gray-600 dark:text-yellow-300">
+          {{ (isDark$ | async) ? 'light_mode' : 'dark_mode' }}
+        </mat-icon>
+      </button>
+
+      <!-- Google Sign-In (unauthenticated) -->
+      <div id="google-btn" *ngIf="!isloggedIn && !(currentUser$ | async)"></div>
+
+      <!-- JWT Auth links (unauthenticated) -->
+      <ng-container *ngIf="!isloggedIn && !(currentUser$ | async)">
+        <a routerLink="/auth/login"
+           class="hidden md:flex items-center gap-1 text-sm text-gray-700 dark:text-gray-200 hover:text-red-600 px-3 py-2 rounded-lg hover:bg-gray-100 transition">
+          <mat-icon class="text-base">login</mat-icon> Login
         </a>
-        
-        <button #elseBlock class="flex items-center justify-center gap-2 h-10 px-2 rounded-lg hover:bg-gray-100"  [matMenuTriggerFor]="menu">
-            <i class="fa-regular fa-user text-[#4a4a4a] text-xl"></i>
-            <p>Account</p>
-            <i class="fa-solid fa-angle-down  text-[#4a4a4a] text-xl"></i>
-        </button>
-        <mat-menu #menu="matMenu">
-            <button mat-menu-item>My Trips</button>
-            <button mat-menu-item>Wallet/Cards</button>
-            <button mat-menu-item (click)="navigate('/profile')">My Profile</button>
-            <button mat-menu-item>Wallet</button>
-            <button mat-menu-item (click)="handlelogout()">Sign Out</button>
+        <a routerLink="/auth/register"
+           class="hidden md:flex bg-red-600 hover:bg-red-700 text-white text-sm font-medium px-3 py-1.5 rounded-lg transition">
+          Register
+        </a>
+      </ng-container>
+
+      <!-- Logged-in user menu -->
+      <div class="hidden md:flex items-center gap-3" *ngIf="isloggedIn || (currentUser$ | async)">
+          <a class="flex items-center justify-center gap-2 h-10 px-2 rounded-lg hover:bg-gray-100">
+              <i class="fa-solid fa-headset text-[#4a4a4a] text-xl"></i>
+              <p>Help</p>
+          </a>
+          <button class="flex items-center justify-center gap-2 h-10 px-2 rounded-lg hover:bg-gray-100" [matMenuTriggerFor]="menu">
+              <i class="fa-regular fa-user text-[#4a4a4a] text-xl"></i>
+              <p>Account</p>
+              <i class="fa-solid fa-angle-down text-[#4a4a4a] text-xl"></i>
+          </button>
+          <mat-menu #menu="matMenu">
+              <button mat-menu-item>My Trips</button>
+              <button mat-menu-item>Wallet/Cards</button>
+              <button mat-menu-item (click)="navigate('/profile')">My Profile</button>
+              <button mat-menu-item (click)="navigate('/route-planning')">Route Planning</button>
+              <button mat-menu-item (click)="navigate('/travel-stories')">Travel Stories</button>
+              <button mat-menu-item (click)="handlelogout()">Sign Out</button>
           </mat-menu>
+      </div>
     </div>
-
-
-
 
 </nav>

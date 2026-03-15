@@ -9,4 +9,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     width: 0;
 }
 
-
+/* Dark mode - OLED optimized using true black (#000000) */
+html.dark body {
+  background-color: #000000;
+  color: #f9fafb;
+}
