@@ -2,26 +2,16 @@
   "buildCommand": "cd REDBUS-CLONE-MEAN-main/REDBUS-CLONE-MEAN-main/frontend && npm install && npm run build",
   "outputDirectory": "REDBUS-CLONE-MEAN-main/REDBUS-CLONE-MEAN-main/frontend/dist/frontend/browser",
   "framework": null,
-  "headers": [
+  "routes": [
     {
-      "source": "/(.*)",
-      "headers": [
-        {
-          "key": "Cross-Origin-Opener-Policy",
-          "value": "same-origin-allow-popups"
-        }
-      ]
-    }
-  ],
-  "rewrites": [
-    { "source": "/customer", "destination": "/api/server" },
-    { "source": "/customer/", "destination": "/api/server" },
-    { "source": "/customer/:path*", "destination": "/api/server" },
-    { "source": "/routes", "destination": "/api/server" },
-    { "source": "/routes/:path*", "destination": "/api/server" },
-    { "source": "/booking", "destination": "/api/server" },
-    { "source": "/booking/", "destination": "/api/server" },
-    { "source": "/booking/:path*", "destination": "/api/server" },
-    { "source": "/(.*)", "destination": "/index.html" }
+      "src": "/(.*)",
+      "headers": { "Cross-Origin-Opener-Policy": "same-origin-allow-popups" },
+      "continue": true
+    },
+    { "src": "/customer(/.*)?", "dest": "/api/server" },
+    { "src": "/routes(/.*)?", "dest": "/api/server" },
+    { "src": "/booking(/.*)?", "dest": "/api/server" },
+    { "handle": "filesystem" },
+    { "src": "/(.*)", "dest": "/index.html" }
   ]
 }
