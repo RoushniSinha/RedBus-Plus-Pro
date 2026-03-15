@@ -14,8 +14,13 @@
     }
   ],
   "rewrites": [
+    { "source": "/customer", "destination": "/api/server" },
+    { "source": "/customer/", "destination": "/api/server" },
     { "source": "/customer/:path*", "destination": "/api/server" },
+    { "source": "/routes", "destination": "/api/server" },
     { "source": "/routes/:path*", "destination": "/api/server" },
+    { "source": "/booking", "destination": "/api/server" },
+    { "source": "/booking/", "destination": "/api/server" },
     { "source": "/booking/:path*", "destination": "/api/server" },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
