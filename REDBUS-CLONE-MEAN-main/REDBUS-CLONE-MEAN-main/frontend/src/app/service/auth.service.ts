@@ -27,6 +27,13 @@ export interface RegisterCredentials {
   password: string;
 }
 
+export interface GoogleCredentials {
+  name: string;
+  email: string;
+  googleId: string;
+  profilePicture?: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -57,6 +64,20 @@ export class AuthService {
     return this.http.post<AuthResponse>(`${url}auth/login`, credentials).pipe(
       tap(res => this.handleAuthResponse(res))
     );
+  }
+
+  googleLogin(credentials: GoogleCredentials): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(`${url}auth/google`, credentials).pipe(
+      tap(res => this.handleAuthResponse(res))
+    );
+  }
+
+  decodeGoogleJwt(token: string): any {
+    try {
+      return JSON.parse(atob(token.split('.')[1]));
+    } catch {
+      return null;
+    }
   }
 
   private handleAuthResponse(res: AuthResponse): void {

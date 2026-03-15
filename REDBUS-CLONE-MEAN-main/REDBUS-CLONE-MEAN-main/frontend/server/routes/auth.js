@@ -13,5 +13,6 @@ const authRateLimiter = rateLimit({
 
 router.post('/auth/register', authRateLimiter, authController.register);
 router.post('/auth/login', authRateLimiter, authController.login);
+router.post('/auth/google', authRateLimiter, authController.googleAuth);
 
 module.exports = router;

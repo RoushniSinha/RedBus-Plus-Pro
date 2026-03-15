@@ -22,7 +22,7 @@ exports.register = async (req, res) => {
     const customer = new Customer({ name, email, passwordHash });
     const saved = await customer.save();
     const token = jwt.sign({ id: saved._id, email: saved.email }, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN });
-    const { passwordHash: _, ...customerData } = saved.toObject();
+    const { passwordHash: _passwordHash, ...customerData } = saved.toObject();
     res.status(201).json({ token, customer: customerData });
   } catch (error) {
     console.error('Registration error:', error);
@@ -45,10 +45,34 @@ exports.login = async (req, res) => {
       return res.status(401).json({ error: 'Invalid credentials' });
     }
     const token = jwt.sign({ id: customer._id, email: customer.email }, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN });
-    const { passwordHash: _, ...customerData } = customer.toObject();
+    const { passwordHash: _passwordHash, ...customerData } = customer.toObject();
     res.json({ token, customer: customerData });
   } catch (error) {
     console.error('Login error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
+exports.googleAuth = async (req, res) => {
+  try {
+    const { name, email, googleId, profilePicture } = req.body;
+    if (!name || !email || !googleId) {
+      return res.status(400).json({ error: 'Name, email and googleId are required' });
+    }
+    let customer = await Customer.findOne({ email }).exec();
+    if (!customer) {
+      customer = new Customer({ name, email, googleId, profilePicture });
+      await customer.save();
+    } else if (!customer.googleId) {
+      customer.googleId = googleId;
+      if (profilePicture) customer.profilePicture = profilePicture;
+      await customer.save();
+    }
+    const token = jwt.sign({ id: customer._id, email: customer.email }, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN });
+    const { passwordHash: _passwordHash, ...customerData } = customer.toObject();
+    res.json({ token, customer: customerData });
+  } catch (error) {
+    console.error('Google auth error:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 };

@@ -14,6 +14,7 @@
     }
   ],
   "rewrites": [
+    { "source": "/auth/:path*", "destination": "/api/server" },
     { "source": "/customer", "destination": "/api/server" },
     { "source": "/customer/", "destination": "/api/server" },
     { "source": "/customer/:path*", "destination": "/api/server" },
@@ -22,6 +23,7 @@
     { "source": "/booking", "destination": "/api/server" },
     { "source": "/booking/", "destination": "/api/server" },
     { "source": "/booking/:path*", "destination": "/api/server" },
+    { "source": "/health", "destination": "/api/server" },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
