@@ -1,0 +1,114 @@
+<section class="route-explorer">
+  <div class="explorer-header">
+    <h1 class="explorer-title">Route Explorer</h1>
+    <p class="explorer-subtitle">Explore waypoints, rest stops, and traffic conditions.</p>
+  </div>
+
+  <div *ngIf="loading()" class="loading-state">
+    <div class="spinner"></div>
+    <p>Loading routes…</p>
+  </div>
+
+  <div *ngIf="!loading()" class="explorer-layout">
+    <!-- Sidebar: route list -->
+    <aside class="route-sidebar">
+      <h2 class="sidebar-heading">Available Routes</h2>
+      <ul class="route-list">
+        <li
+          *ngFor="let route of routes(); trackBy: trackByRouteId"
+          class="route-item"
+          [class.route-item--active]="selectedRoute()?.id === route.id"
+          (click)="selectRoute(route)">
+          <div class="route-item-cities">
+            <span class="city-origin">{{ route.origin }}</span>
+            <span class="route-arrow">&#8594;</span>
+            <span class="city-dest">{{ route.destination }}</span>
+          </div>
+          <div class="route-item-meta">
+            <span>{{ route.totalDistance }} km</span>
+            <span [class]="getTrafficClass(route.trafficIndex)">
+              Traffic: {{ getTrafficLabel(route.trafficIndex) }}
+            </span>
+          </div>
+        </li>
+      </ul>
+    </aside>
+
+    <!-- Main area: map placeholder + waypoints -->
+    <main class="route-main" *ngIf="selectedRoute() as route">
+      <div class="map-placeholder" aria-label="Route map">
+        <div class="map-label">
+          <span class="map-origin">{{ route.origin }}</span>
+          <div class="map-path">
+            <span
+              *ngFor="let wp of route.waypoints; trackBy: trackByWaypointName"
+              class="map-waypoint-dot"
+              [class.map-waypoint-dot--rest]="wp.type === 'rest-stop'"
+              [class.map-waypoint-dot--city]="wp.type === 'city'"
+              [title]="wp.name"
+              (click)="selectWaypoint(wp)">
+            </span>
+          </div>
+          <span class="map-dest">{{ route.destination }}</span>
+        </div>
+        <p class="map-note">Interactive map — integrate Leaflet or Google Maps SDK for live rendering.</p>
+      </div>
+
+      <!-- Route Summary -->
+      <div class="route-summary">
+        <div class="summary-item">
+          <span class="summary-label">Distance</span>
+          <span class="summary-value">{{ route.totalDistance }} km</span>
+        </div>
+        <div class="summary-item">
+          <span class="summary-label">Est. Duration</span>
+          <span class="summary-value">{{ formatDuration(route.estimatedDuration) }}</span>
+        </div>
+        <div class="summary-item">
+          <span class="summary-label">Traffic Index</span>
+          <span class="summary-value" [class]="getTrafficClass(route.trafficIndex)">
+            {{ route.trafficIndex.toFixed(2) }} — {{ getTrafficLabel(route.trafficIndex) }}
+          </span>
+        </div>
+        <div class="summary-item">
+          <span class="summary-label">Waypoints</span>
+          <span class="summary-value">{{ route.waypoints.length }}</span>
+        </div>
+      </div>
+
+      <!-- Waypoints panel -->
+      <div class="waypoints-panel">
+        <h3 class="waypoints-heading">Waypoints &amp; Rest Stops</h3>
+        <ul class="waypoints-list">
+          <li
+            *ngFor="let wp of route.waypoints; trackBy: trackByWaypointName"
+            class="waypoint-item"
+            [class.waypoint-item--selected]="selectedWaypoint()?.name === wp.name"
+            (click)="selectWaypoint(wp)">
+            <div class="waypoint-icon" [class]="'icon-' + wp.type">
+              <span *ngIf="wp.type === 'rest-stop'">&#9749;</span>
+              <span *ngIf="wp.type === 'city'">&#127961;</span>
+              <span *ngIf="wp.type === 'landmark'">&#127937;</span>
+            </div>
+            <div class="waypoint-info">
+              <span class="waypoint-name">{{ wp.name }}</span>
+              <span class="waypoint-type">{{ wp.type | titlecase }}</span>
+            </div>
+            <div class="waypoint-coords">
+              <span>{{ wp.position.lat.toFixed(4) }}°N, {{ wp.position.lng.toFixed(4) }}°E</span>
+              <span *ngIf="wp.estimatedArrival" class="waypoint-eta">ETA +{{ wp.estimatedArrival }}</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Selected waypoint detail -->
+      <div *ngIf="selectedWaypoint() as wp" class="waypoint-detail">
+        <h4>Selected: {{ wp.name }}</h4>
+        <p>Type: <strong>{{ wp.type | titlecase }}</strong></p>
+        <p>Coordinates: {{ wp.position.lat.toFixed(6) }}, {{ wp.position.lng.toFixed(6) }}</p>
+        <p *ngIf="wp.estimatedArrival">ETA from origin: <strong>+{{ wp.estimatedArrival }}</strong></p>
+      </div>
+    </main>
+  </div>
+</section>

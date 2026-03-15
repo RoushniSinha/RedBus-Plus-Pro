@@ -1,0 +1,110 @@
+<section class="review-section">
+  <div class="review-header">
+    <h1 class="review-title">Write a Review</h1>
+    <p class="review-subtitle">Rate your journey across 5 dimensions and help others travel better.</p>
+  </div>
+
+  <!-- Success state -->
+  <div *ngIf="submitted()" class="success-card">
+    <div class="success-icon">&#10003;</div>
+    <h2>Thank you for your review!</h2>
+    <p>Your feedback helps improve the experience for fellow travellers.</p>
+    <button class="btn btn-primary" (click)="reset()">Write Another Review</button>
+  </div>
+
+  <div *ngIf="!submitted()" class="review-layout">
+    <!-- Rating Form -->
+    <div class="rating-form-card">
+      <!-- Average Score Display -->
+      <div class="average-display">
+        <span class="average-number">{{ averageScore() | number:'1.1-1' }}</span>
+        <span class="average-label">/ 5.0 Average Score</span>
+        <div class="average-stars">
+          <span
+            *ngFor="let star of getStars(5)"
+            class="star"
+            [class.star--filled]="star <= averageScore()">
+            &#9733;
+          </span>
+        </div>
+      </div>
+
+      <!-- Dimension Sliders -->
+      <div class="dimensions-list">
+        <div
+          *ngFor="let dim of dimensions"
+          class="dimension-row">
+          <div class="dimension-header">
+            <span class="dimension-label">{{ dim.label }}</span>
+            <span class="dimension-desc">{{ dim.description }}</span>
+          </div>
+          <div class="dimension-stars">
+            <button
+              *ngFor="let star of getStars(5)"
+              class="star-btn"
+              [class.star-btn--active]="star <= ratings()[dim.key]"
+              (click)="setRating(dim.key, star)"
+              [attr.aria-label]="'Rate ' + dim.label + ' ' + star + ' out of 5'">
+              &#9733;
+            </button>
+            <span class="dimension-score">{{ ratings()[dim.key] }}/5</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Comment -->
+      <div class="comment-field">
+        <label for="comment" class="field-label">Your Experience (optional)</label>
+        <textarea
+          id="comment"
+          [value]="comment()"
+          (input)="comment.set($any($event.target).value)"
+          class="comment-textarea"
+          rows="4"
+          placeholder="Share details about your journey…">
+        </textarea>
+      </div>
+
+      <!-- Submit -->
+      <button
+        class="btn btn-primary btn-full"
+        [disabled]="submitting() || !allRated()"
+        (click)="submit()">
+        <span *ngIf="!submitting()">Submit Review</span>
+        <span *ngIf="submitting()">Submitting…</span>
+      </button>
+      <p *ngIf="!allRated()" class="form-hint">Please rate all 5 dimensions to submit.</p>
+    </div>
+
+    <!-- Recent Reviews -->
+    <div class="recent-reviews-card">
+      <h2 class="recent-title">Recent Reviews</h2>
+      <div
+        *ngFor="let review of recentReviews(); trackBy: trackByReviewId"
+        class="review-item">
+        <div class="review-item-header">
+          <span class="reviewer-name">{{ review.customerName }}</span>
+          <span class="review-score" [class.score-high]="review.averageScore >= 4" [class.score-low]="review.averageScore < 3">
+            &#9733; {{ review.averageScore | number:'1.1-1' }}
+          </span>
+        </div>
+        <p class="review-comment">{{ review.comment }}</p>
+        <div class="review-meta">
+          <span>{{ review.journeyDate }}</span>
+          <span>&#9829; {{ review.helpfulVotes }} found helpful</span>
+        </div>
+        <div class="review-dimensions">
+          <span class="dim-badge" *ngFor="let entry of [
+            { label: 'Punc.', val: review.ratings.punctuality },
+            { label: 'Clean', val: review.ratings.cleanliness },
+            { label: 'Amen.', val: review.ratings.amenities },
+            { label: 'Driver', val: review.ratings.driverBehavior },
+            { label: 'Comfort', val: review.ratings.comfort }
+          ]">
+            {{ entry.label }}: {{ entry.val }}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,46 @@
+<section class="community-feed">
+  <div class="feed-header">
+    <h1 class="feed-title">Travel Stories</h1>
+    <p class="feed-subtitle">Real journeys. Real people. Shared with love.</p>
+  </div>
+
+  <div *ngIf="loading()" class="loading-state">
+    <div class="spinner"></div>
+    <p>Loading stories…</p>
+  </div>
+
+  <div *ngIf="error()" class="error-state">
+    <p>{{ error() }}</p>
+  </div>
+
+  <div *ngIf="!loading() && !error()" class="masonry-grid">
+    <article
+      *ngFor="let story of stories(); trackBy: trackByStoryId"
+      class="story-card">
+      <div class="story-image-wrapper">
+        <img
+          [src]="getFirstImage(story)"
+          [alt]="story.title"
+          class="story-image"
+          loading="lazy" />
+        <span class="story-tag" *ngFor="let tag of story.tags.slice(0, 2)">#{{ tag }}</span>
+      </div>
+      <div class="story-body">
+        <div class="story-author">
+          <img
+            *ngIf="story.authorAvatar"
+            [src]="story.authorAvatar"
+            [alt]="story.authorName"
+            class="author-avatar" />
+          <span class="author-name">{{ story.authorName }}</span>
+        </div>
+        <h2 class="story-title">{{ story.title }}</h2>
+        <p class="story-excerpt">{{ getExcerpt(story) }}</p>
+        <div class="story-footer">
+          <span class="story-likes">&#9829; {{ story.likes }}</span>
+          <span class="story-date">{{ story.createdAt | date:'mediumDate' }}</span>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>

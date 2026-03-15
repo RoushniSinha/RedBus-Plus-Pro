@@ -1,0 +1,369 @@
+.route-explorer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.explorer-header {
+  margin-bottom: 2rem;
+}
+
+.explorer-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1a1a2e;
+}
+
+:host-context(.dark) .explorer-title {
+  color: #f1f5f9;
+}
+
+.explorer-subtitle {
+  color: #64748b;
+  margin-top: 0.25rem;
+}
+
+.explorer-layout {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .explorer-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ─── Sidebar ─────────────────────────────────────────────────── */
+.route-sidebar {
+  background: #f8fafc;
+  border-radius: 0.75rem;
+  padding: 1rem;
+  height: fit-content;
+}
+
+:host-context(.dark) .route-sidebar {
+  background: #111111;
+}
+
+.sidebar-heading {
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #94a3b8;
+  margin-bottom: 0.75rem;
+}
+
+.route-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.route-item {
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background 0.15s;
+  margin-bottom: 0.5rem;
+}
+
+.route-item:hover {
+  background: #e2e8f0;
+}
+
+:host-context(.dark) .route-item:hover {
+  background: #1e293b;
+}
+
+.route-item--active {
+  background: #fee2e2;
+  border-left: 3px solid #d1373f;
+}
+
+:host-context(.dark) .route-item--active {
+  background: #1c0a0a;
+  border-left-color: #ef4444;
+}
+
+.route-item-cities {
+  font-weight: 600;
+  color: #1e293b;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+:host-context(.dark) .route-item-cities {
+  color: #f1f5f9;
+}
+
+.route-arrow {
+  color: #d1373f;
+}
+
+.route-item-meta {
+  margin-top: 0.25rem;
+  font-size: 0.75rem;
+  color: #94a3b8;
+  display: flex;
+  gap: 0.75rem;
+}
+
+/* ─── Main ────────────────────────────────────────────────────── */
+.route-main {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.map-placeholder {
+  background: linear-gradient(135deg, #e0f2fe 0%, #dbeafe 100%);
+  border-radius: 0.75rem;
+  min-height: 240px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  text-align: center;
+}
+
+:host-context(.dark) .map-placeholder {
+  background: linear-gradient(135deg, #0c1a2e 0%, #0f172a 100%);
+}
+
+.map-label {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.map-origin,
+.map-dest {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #1e40af;
+}
+
+:host-context(.dark) .map-origin,
+:host-context(.dark) .map-dest {
+  color: #93c5fd;
+}
+
+.map-path {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-width: 120px;
+}
+
+.map-waypoint-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #94a3b8;
+  cursor: pointer;
+  border: 2px solid #fff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  transition: transform 0.15s;
+}
+
+.map-waypoint-dot:hover {
+  transform: scale(1.4);
+}
+
+.map-waypoint-dot--rest {
+  background: #f59e0b;
+}
+
+.map-waypoint-dot--city {
+  background: #3b82f6;
+}
+
+.map-note {
+  font-size: 0.75rem;
+  color: #64748b;
+}
+
+/* Route Summary */
+.route-summary {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+
+@media (max-width: 640px) {
+  .route-summary { grid-template-columns: repeat(2, 1fr); }
+}
+
+.summary-item {
+  background: #f1f5f9;
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+:host-context(.dark) .summary-item {
+  background: #1e293b;
+}
+
+.summary-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #94a3b8;
+  margin-bottom: 0.25rem;
+}
+
+.summary-value {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+:host-context(.dark) .summary-value {
+  color: #f1f5f9;
+}
+
+/* Traffic classes */
+.traffic-low { color: #16a34a; }
+.traffic-moderate { color: #d97706; }
+.traffic-high { color: #dc2626; }
+
+/* Waypoints panel */
+.waypoints-panel {
+  background: #f8fafc;
+  border-radius: 0.75rem;
+  padding: 1rem;
+}
+
+:host-context(.dark) .waypoints-panel {
+  background: #111111;
+}
+
+.waypoints-heading {
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #94a3b8;
+  margin-bottom: 0.75rem;
+}
+
+.waypoints-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.waypoint-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.6rem 0.75rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.waypoint-item:hover {
+  background: #e2e8f0;
+}
+
+:host-context(.dark) .waypoint-item:hover {
+  background: #1e293b;
+}
+
+.waypoint-item--selected {
+  background: #fee2e2;
+}
+
+:host-context(.dark) .waypoint-item--selected {
+  background: #1c0a0a;
+}
+
+.waypoint-icon {
+  font-size: 1.2rem;
+  width: 32px;
+  text-align: center;
+}
+
+.waypoint-info {
+  flex: 1;
+}
+
+.waypoint-name {
+  display: block;
+  font-weight: 600;
+  color: #1e293b;
+  font-size: 0.9rem;
+}
+
+:host-context(.dark) .waypoint-name {
+  color: #f1f5f9;
+}
+
+.waypoint-type {
+  font-size: 0.75rem;
+  color: #94a3b8;
+}
+
+.waypoint-coords {
+  font-size: 0.75rem;
+  color: #94a3b8;
+  text-align: right;
+  line-height: 1.6;
+}
+
+.waypoint-eta {
+  display: block;
+  color: #d1373f;
+  font-weight: 600;
+}
+
+/* Waypoint detail panel */
+.waypoint-detail {
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  border-radius: 0.75rem;
+  padding: 1rem;
+  font-size: 0.875rem;
+  color: #1e40af;
+}
+
+:host-context(.dark) .waypoint-detail {
+  background: #0c1a2e;
+  border-color: #1d4ed8;
+  color: #93c5fd;
+}
+
+/* Loading */
+.loading-state {
+  text-align: center;
+  padding: 3rem;
+  color: #64748b;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #e5e7eb;
+  border-top-color: #d1373f;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: 0 auto 1rem;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

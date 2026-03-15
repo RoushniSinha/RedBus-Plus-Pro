@@ -8,7 +8,19 @@ const routes: Routes = [
   {path: '',component:LandingPageComponent},
   {path: 'select-bus',component:SelectbusPageComponent},
   {path:'payment',component:PaymentPageComponent},
-  {path:'profile',component:ProfilePageComponent}
+  {path:'profile',component:ProfilePageComponent},
+  {
+    path: 'community',
+    loadChildren: () => import('./community/community.module').then(m => m.CommunityModule)
+  },
+  {
+    path: 'routes',
+    loadChildren: () => import('./route-elite/route-elite.module').then(m => m.RouteEliteModule)
+  },
+  {
+    path: 'reviews',
+    loadChildren: () => import('./review/review.module').then(m => m.ReviewModule)
+  }
 ];
 
 @NgModule({
