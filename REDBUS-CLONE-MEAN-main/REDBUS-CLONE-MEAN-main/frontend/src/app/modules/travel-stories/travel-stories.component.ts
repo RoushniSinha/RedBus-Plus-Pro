@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { NotificationService } from '../../service/notification.service';
 import { AuthService } from '../../service/auth.service';
-import { environment } from '../../../environments/environment';
+import { environment } from 'src/environments/environment';
 
 export interface TravelStory {
   _id?: string;
@@ -43,7 +43,9 @@ export class TravelStoriesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loadMockStories();
+    if (environment.features.ugc) {
+      this.loadMockStories();
+    }
   }
 
   private loadMockStories(): void {
@@ -63,6 +65,30 @@ export class TravelStoriesComponent implements OnInit {
         rating: 4,
         imageUrl: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80',
         createdAt: new Date('2024-12-01')
+      },
+      {
+        title: 'Bangalore to Mysore – Heritage on Wheels',
+        content: 'A smooth ride through the Deccan Plateau with stunning views of the Chamundi Hills. The historic Mysore Palace illuminated at dusk made the whole trip worthwhile.',
+        author: 'Ananya Krishnan',
+        rating: 5,
+        imageUrl: 'https://images.unsplash.com/photo-1570168007204-dfb528c6958f?w=600&q=80',
+        createdAt: new Date('2025-01-15')
+      },
+      {
+        title: 'Kolkata to Darjeeling – Tea Gardens & Mountain Air',
+        content: 'Woke up at sunrise to misty tea gardens and the distant snow-capped peaks of Kangchenjunga. The night bus was comfortable and the crew was super helpful.',
+        author: 'Sourav Das',
+        rating: 4,
+        imageUrl: 'https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=600&q=80',
+        createdAt: new Date('2025-02-05')
+      },
+      {
+        title: 'Chennai to Pondicherry – French Quarter & Beaches',
+        content: "A breezy coastal ride along the Bay of Bengal. Pondicherry's French-colonial charm and tranquil promenade beaches more than justified the journey.",
+        author: 'Meera Nair',
+        rating: 5,
+        imageUrl: 'https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?w=600&q=80',
+        createdAt: new Date('2025-03-01')
       }
     ];
   }

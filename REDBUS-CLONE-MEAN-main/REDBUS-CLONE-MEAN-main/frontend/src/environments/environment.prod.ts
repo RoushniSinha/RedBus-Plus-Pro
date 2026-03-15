@@ -6,7 +6,7 @@ export const environment = {
   // REQUIRED before deploying: Replace YOUR_CLOUD_NAME with your Cloudinary cloud name
   // and set cloudinaryUploadPreset to a valid unsigned upload preset.
   cloudinaryUploadUrl: 'https://api.cloudinary.com/v1_1/YOUR_CLOUD_NAME/image/upload',
-  cloudinaryUploadPreset: 'redbus_elite_unsigned'
+  cloudinaryUploadPreset: 'redbus_elite_unsigned',
   features: {
     ugc: true,
     notifications: true,
