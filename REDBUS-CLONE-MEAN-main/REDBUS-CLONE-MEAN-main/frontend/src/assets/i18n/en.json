@@ -25,6 +25,45 @@
     "CANCEL": "Cancel",
     "SUBMIT": "Submit",
     "DARK_MODE": "Dark Mode",
-    "LIGHT_MODE": "Light Mode"
+    "LIGHT_MODE": "Light Mode",
+    "OLED_MODE": "OLED Dark Mode"
+  },
+  "NOTIFICATIONS": {
+    "BOOKING_CONFIRMED": "Your booking is confirmed!",
+    "BOOKING_CONFIRMED_DETAIL": "Bus: {{busName}} | Route: {{route}} | Date: {{date}}",
+    "JOURNEY_ENDED": "How was your journey?",
+    "JOURNEY_ENDED_DETAIL": "Rate your trip on {{route}}",
+    "STORY_APPROVED": "Your travel story is live!",
+    "STORY_APPROVED_DETAIL": "\"{{title}}\" is now visible to the community.",
+    "REVIEW_SUBMITTED": "Thank you for your review!",
+    "ERROR_SENDING": "Could not send notification. Please try again.",
+    "ALERT_EMAIL": "Email alert sent",
+    "ALERT_SMS": "SMS alert sent",
+    "ALERT_PUSH": "Push notification sent"
+  },
+  "REVIEWS": {
+    "TITLE": "Rate Your Journey",
+    "PUNCTUALITY": "Punctuality",
+    "CLEANLINESS": "Cleanliness",
+    "AMENITIES": "Amenities",
+    "COMMENT": "Comments (optional)",
+    "SUBMIT": "Submit Review",
+    "ALREADY_SUBMITTED": "You have already reviewed this journey.",
+    "AGGREGATE_SCORE": "Overall Score",
+    "NO_REVIEWS": "No reviews yet. Be the first to review!"
+  },
+  "STORIES": {
+    "TITLE": "Travel Stories",
+    "NEW_STORY": "Share Your Story",
+    "STORY_TITLE": "Title",
+    "STORY_CONTENT": "Your story",
+    "TAGS": "Tags (comma-separated)",
+    "ROUTE": "Route",
+    "UPLOAD_IMAGES": "Upload Images",
+    "SUBMIT": "Publish Story",
+    "PENDING": "Pending Review",
+    "APPROVED": "Approved",
+    "REJECTED": "Rejected",
+    "MODERATION_NOTE": "Moderation Note"
   }
 }

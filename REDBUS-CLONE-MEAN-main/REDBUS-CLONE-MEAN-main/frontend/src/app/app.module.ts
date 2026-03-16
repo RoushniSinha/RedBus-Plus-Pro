@@ -34,6 +34,7 @@ import { ProfilePageComponent } from './Component/profile-page/profile-page.comp
 import { MyTripComponent } from './Component/profile-page/my-trip/my-trip.component';
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { NotificationComponent } from './shared/components/notification/notification.component';
 import { StarRatingModule } from './shared/star-rating.module';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
@@ -94,7 +95,8 @@ export function HttpLoaderFactory(http: HttpClient) {
   ],
   providers: [
     provideNativeDateAdapter(),
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })
