@@ -1,6 +1,7 @@
 <!-- navbar.component.html -->
+<div class="sticky top-0 z-20">
 <nav
-    class="px-4 md:px-14 py-1 md:py-3 flex text-xs md:text-base font-normal items-center justify-between sticky top-0 bg-white z-20 drop-shadow-xl">
+    class="px-4 md:px-14 py-1 md:py-3 flex text-xs md:text-base font-normal items-center justify-between bg-white relative drop-shadow-xl">
     <div class="flex gap-2 md:gap-16 items-center w-full justify-between md:w-auto md:justify-start">
         <div class="grid place-content-center">
             <img class="md:w-[4.5rem] md:h-auto w-12 h-10"
@@ -125,6 +126,52 @@
               <button mat-menu-item (click)="handlelogout()">Sign Out</button>
           </mat-menu>
       </div>
+
+      <!-- Mobile Hamburger Button -->
+      <button
+        (click)="toggleMobileMenu()"
+        class="md:hidden p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition"
+        aria-label="Toggle mobile menu"
+      >
+        <mat-icon class="text-gray-600 dark:text-gray-300">{{ isMobileMenuOpen ? 'close' : 'menu' }}</mat-icon>
+      </button>
+    </div>
+
+    <!-- Mobile Menu Dropdown -->
+    <div *ngIf="isMobileMenuOpen" role="menu" aria-label="Mobile navigation menu" class="md:hidden absolute top-full left-0 right-0 bg-white dark:bg-gray-900 shadow-lg px-4 py-3 flex flex-col gap-2 border-t border-gray-100 dark:border-gray-700">
+
+      <!-- Unauthenticated: Login & Register -->
+      <ng-container *ngIf="!isloggedIn && !(currentUser$ | async)">
+        <a routerLink="/auth/login" (click)="closeMobileMenu()"
+           class="flex items-center gap-2 py-2.5 px-4 text-sm text-gray-700 dark:text-gray-200 hover:text-red-600 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition">
+          <mat-icon class="text-base">login</mat-icon> Login
+        </a>
+        <a routerLink="/auth/register" (click)="closeMobileMenu()"
+           class="flex items-center justify-center py-2.5 px-4 bg-red-600 hover:bg-red-700 text-white text-sm font-medium rounded-lg transition">
+          Register
+        </a>
+      </ng-container>
+
+      <!-- Authenticated: Account links -->
+      <ng-container *ngIf="isloggedIn || (currentUser$ | async)">
+        <button (click)="navigateAndCloseMobileMenu('/profile')"
+                class="flex items-center gap-2 py-2.5 px-4 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition text-left w-full">
+          <mat-icon class="text-base">person</mat-icon> My Profile
+        </button>
+        <button (click)="navigateAndCloseMobileMenu('/route-planning')"
+                class="flex items-center gap-2 py-2.5 px-4 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition text-left w-full">
+          <mat-icon class="text-base">map</mat-icon> Route Planning
+        </button>
+        <button (click)="navigateAndCloseMobileMenu('/travel-stories')"
+                class="flex items-center gap-2 py-2.5 px-4 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition text-left w-full">
+          <mat-icon class="text-base">menu_book</mat-icon> Travel Stories
+        </button>
+        <button (click)="handlelogout()"
+                class="flex items-center gap-2 py-2.5 px-4 text-sm text-red-600 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition text-left w-full">
+          <mat-icon class="text-base">logout</mat-icon> Sign Out
+        </button>
+      </ng-container>
     </div>
 
 </nav>
+</div>
