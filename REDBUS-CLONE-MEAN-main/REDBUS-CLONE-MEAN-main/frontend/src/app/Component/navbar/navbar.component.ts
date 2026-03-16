@@ -15,6 +15,7 @@ import { Observable } from 'rxjs';
 })
 export class NavbarComponent implements OnInit{
   isloggedIn: boolean = false;
+  isMobileMenuOpen = false;
   currentUser$: Observable<AuthUser | null>;
   isDark$: Observable<boolean>;
   currentLang = 'en';
@@ -91,6 +92,20 @@ export class NavbarComponent implements OnInit{
     sessionStorage.removeItem('Loggedinuser');
     this.authService.logout();
     this.isloggedIn = false;
+    this.isMobileMenuOpen = false;
+  }
+
+  toggleMobileMenu(): void {
+    this.isMobileMenuOpen = !this.isMobileMenuOpen;
+  }
+
+  closeMobileMenu(): void {
+    this.isMobileMenuOpen = false;
+  }
+
+  navigateAndCloseMobileMenu(route: string): void {
+    this.navigate(route);
+    this.isMobileMenuOpen = false;
   }
 
   toggleDarkMode(): void {
