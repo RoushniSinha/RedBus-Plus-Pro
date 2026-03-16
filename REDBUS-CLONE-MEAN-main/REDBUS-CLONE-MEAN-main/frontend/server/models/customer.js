@@ -34,6 +34,19 @@ const customerSchema = new Schema({
     type: String,
     required: false,
   },
+  phoneNumber: {
+    type: String,
+    required: false,
+  },
+  fcmToken: {
+    type: String,
+    required: false,
+  },
+  language: {
+    type: String,
+    enum: ['en', 'hi'],
+    default: 'en',
+  },
 });
 
 module.exports=mongoose.model("Customers",customerSchema)

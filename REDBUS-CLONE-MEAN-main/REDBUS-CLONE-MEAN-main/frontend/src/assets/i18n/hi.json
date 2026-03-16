@@ -25,6 +25,45 @@
     "CANCEL": "रद्द करें",
     "SUBMIT": "सबमिट करें",
     "DARK_MODE": "डार्क मोड",
-    "LIGHT_MODE": "लाइट मोड"
+    "LIGHT_MODE": "लाइट मोड",
+    "OLED_MODE": "OLED डार्क मोड"
+  },
+  "NOTIFICATIONS": {
+    "BOOKING_CONFIRMED": "आपकी बुकिंग की पुष्टि हो गई!",
+    "BOOKING_CONFIRMED_DETAIL": "बस: {{busName}} | मार्ग: {{route}} | तारीख: {{date}}",
+    "JOURNEY_ENDED": "आपकी यात्रा कैसी रही?",
+    "JOURNEY_ENDED_DETAIL": "{{route}} पर अपनी यात्रा को रेट करें",
+    "STORY_APPROVED": "आपकी यात्रा कहानी लाइव है!",
+    "STORY_APPROVED_DETAIL": "\"{{title}}\" अब समुदाय को दिखाई दे रही है।",
+    "REVIEW_SUBMITTED": "आपकी समीक्षा के लिए धन्यवाद!",
+    "ERROR_SENDING": "सूचना नहीं भेजी जा सकी। कृपया पुनः प्रयास करें।",
+    "ALERT_EMAIL": "ईमेल अलर्ट भेजा गया",
+    "ALERT_SMS": "SMS अलर्ट भेजा गया",
+    "ALERT_PUSH": "पुश नोटिफिकेशन भेजा गया"
+  },
+  "REVIEWS": {
+    "TITLE": "अपनी यात्रा को रेट करें",
+    "PUNCTUALITY": "समयपालन",
+    "CLEANLINESS": "स्वच्छता",
+    "AMENITIES": "सुविधाएँ",
+    "COMMENT": "टिप्पणियाँ (वैकल्पिक)",
+    "SUBMIT": "समीक्षा सबमिट करें",
+    "ALREADY_SUBMITTED": "आप पहले ही इस यात्रा की समीक्षा कर चुके हैं।",
+    "AGGREGATE_SCORE": "कुल स्कोर",
+    "NO_REVIEWS": "अभी कोई समीक्षा नहीं। पहले समीक्षा करें!"
+  },
+  "STORIES": {
+    "TITLE": "यात्रा कहानियाँ",
+    "NEW_STORY": "अपनी कहानी साझा करें",
+    "STORY_TITLE": "शीर्षक",
+    "STORY_CONTENT": "आपकी कहानी",
+    "TAGS": "टैग (अल्पविराम से अलग करें)",
+    "ROUTE": "मार्ग",
+    "UPLOAD_IMAGES": "छवियाँ अपलोड करें",
+    "SUBMIT": "कहानी प्रकाशित करें",
+    "PENDING": "समीक्षाधीन",
+    "APPROVED": "अनुमोदित",
+    "REJECTED": "अस्वीकृत",
+    "MODERATION_NOTE": "मॉडरेशन नोट"
   }
 }

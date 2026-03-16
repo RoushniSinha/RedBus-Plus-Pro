@@ -14,3 +14,23 @@ html.dark body {
   background-color: #000000;
   color: #f9fafb;
 }
+
+/* OLED Dark Mode – pure black background (#000000) for power-saving on OLED screens */
+html.oled-dark,
+html.oled-dark body {
+  background-color: #000000 !important;
+  color: #ffffff;
+}
+
+html.oled-dark .mat-toolbar,
+html.oled-dark nav,
+html.oled-dark header {
+  background-color: #000000 !important;
+}
+
+html.oled-dark .mat-card,
+html.oled-dark mat-card,
+html.oled-dark .card {
+  background-color: #0a0a0a !important;
+  border: 1px solid #1a1a1a;
+}
