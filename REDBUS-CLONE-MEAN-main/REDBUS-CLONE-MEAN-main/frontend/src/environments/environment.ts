@@ -5,5 +5,13 @@ export const environment = {
   // Replace YOUR_CLOUD_NAME with your Cloudinary cloud name and set cloudinaryUploadPreset
   // to an unsigned upload preset created in your Cloudinary dashboard.
   cloudinaryUploadUrl: 'https://api.cloudinary.com/v1_1/YOUR_CLOUD_NAME/image/upload',
-  cloudinaryUploadPreset: 'redbus_elite_unsigned'
+  cloudinaryUploadPreset: 'redbus_elite_unsigned',
+  features: {
+    ugc: true,
+    notifications: true,
+    i18n: true,
+    routePlanning: true,
+    darkMode: true,
+    reviews: true
+  }
 };

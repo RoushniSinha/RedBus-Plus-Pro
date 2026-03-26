@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 declare var google:any;
 import { CustomerService } from '../../service/customer.service';
 import { Router } from '@angular/router';
-import { environment } from '../../../environments/environment';
+import { environment } from 'src/environments/environment';
 import { AuthService, AuthUser } from '../../service/auth.service';
 import { ThemeService } from '../../service/theme.service';
 import { TranslateService } from '@ngx-translate/core';
